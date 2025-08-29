@@ -1,14 +1,22 @@
 package com.school;
 
 public class Student {
-    private static int nextStudentIdCounter = 1; // auto-increment counter
+    private static int nextStudentIdCounter = 1;
     private int studentId;
     private String name;
 
-    // Constructor for initialization
     public Student(String studentName) {
         this.studentId = nextStudentIdCounter++;
         this.name = studentName;
+    }
+
+    // Getters
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void displayDetails() {

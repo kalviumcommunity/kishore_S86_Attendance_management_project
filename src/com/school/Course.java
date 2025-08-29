@@ -1,14 +1,22 @@
 package com.school;
 
 public class Course {
-    private static int nextCourseIdCounter = 101; // auto-increment counter starting from 101
+    private static int nextCourseIdCounter = 101;
     private int courseId;
     private String courseName;
 
-    // Constructor for initialization
     public Course(String cName) {
         this.courseId = nextCourseIdCounter++;
         this.courseName = cName;
+    }
+
+    // Getters
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
     }
 
     public void displayDetails() {
