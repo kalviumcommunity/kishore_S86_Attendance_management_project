@@ -1,17 +1,19 @@
 package com.school;
 
-public class Student {
-    private static int nextStudentIdCounter = 1; // auto-increment counter
-    private int studentId;
-    private String name;
+public class Student extends Person {
+    private String gradeLevel;
 
-    // Constructor for initialization
-    public Student(String studentName) {
-        this.studentId = nextStudentIdCounter++;
-        this.name = studentName;
+    public Student(String name, String gradeLevel) {
+        super(name); // Call Person constructor for auto-id and name
+        this.gradeLevel = gradeLevel;
     }
 
+    public String getGradeLevel() {
+        return gradeLevel;
+    }
+
+    @Override
     public void displayDetails() {
-        System.out.println("Student ID: S" + this.studentId + ", Name: " + this.name);
+        System.out.println("Student -> ID: " + getId() + ", Name: " + getName() + ", Grade Level: " + gradeLevel);
     }
 }
