@@ -66,3 +66,17 @@ Implemented basic validation in the AttendanceRecord constructor for the attenda
 Used an ArrayList in Main.java to store and display AttendanceRecord objects.
 
 Demonstrated retrieving IDs using getters (e.g., student1.getStudentId()) when creating records.
+
+Part 5: Establishing Students, Teaching and Non Teaching Staff Hierarchy
+
+Created a base class Person.java with common attributes id and name, a universal auto ID generator, and a displayDetails method.
+
+Modified Student.java to inherit from Person, using super to call the parent constructor and overriding displayDetails to add student specific information such as grade level.
+
+Created Teacher.java extending Person, adding a subjectTaught attribute and its own displayDetails method.
+
+Created Staff.java extending Person, adding a role attribute and its own displayDetails method.
+
+Demonstrated creation and display of Student, Teacher, and Staff objects in Main.java.
+
+Updated AttendanceRecord creation to use the inherited getId method.
