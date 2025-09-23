@@ -1,64 +1,51 @@
 package com.school;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("--- School Attendance System ---");
-        System.out.println("=== Part 5: Inheritance Hierarchy ===\n");
+        System.out.println("=== Part 6: Interface-Driven Persistence ===");
 
-        // Students (Student extends Person)
-        Student s1 = new Student("Alice Wonderland", "10th Grade");
-        Student s2 = new Student("Bob The Builder", "11th Grade");
-        Student s3 = new Student("Charlie Brown", "12th Grade");
+        // Students
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student("Alice Wonderland", "10th Grade"));
+        students.add(new Student("Bob The Builder", "11th Grade"));
+        students.add(new Student("Charlie Brown", "12th Grade"));
 
-        // Teachers
-        Teacher t1 = new Teacher("Mr. John", "Mathematics");
-        Teacher t2 = new Teacher("Ms. Mary", "Physics");
-
-        // Staff
-        Staff st1 = new Staff("David", "Clerk");
-        Staff st2 = new Staff("Sophia", "Librarian");
-
-        // Display Students
-        System.out.println("Registered Students:");
-        s1.displayDetails();
-        s2.displayDetails();
-        s3.displayDetails();
-
-        // Display Teachers
-        System.out.println("\nTeachers:");
-        t1.displayDetails();
-        t2.displayDetails();
-
-        // Display Staff
-        System.out.println("\nNon-Teaching Staff:");
-        st1.displayDetails();
-        st2.displayDetails();
-
-        // Courses
-        Course c1 = new Course("Intro to Programming");
-        Course c2 = new Course("Linear Algebra");
-        Course c3 = new Course("Data Structures");
-
-        // Display Courses
-        System.out.println("\nAvailable Courses:");
-        c1.displayDetails();
-        c2.displayDetails();
-        c3.displayDetails();
-
-        // Attendance Records
-        List<AttendanceRecord> attendanceLog = new ArrayList<>();
-        attendanceLog.add(new AttendanceRecord(s1.getId(), c1.getCourseId(), "Present"));
-        attendanceLog.add(new AttendanceRecord(s2.getId(), c2.getCourseId(), "Absent"));
-        attendanceLog.add(new AttendanceRecord(s3.getId(), c3.getCourseId(), "Late")); // invalid status
-
-        System.out.println("\nAttendance Records:");
-        for (AttendanceRecord record : attendanceLog) {
-            record.displayRecord();
+        System.out.println("\nRegistered Students:");
+        for (Student s : students) {
+            s.displayDetails();
         }
 
-        System.out.println("\nPart 5: Inheritance Hierarchy Complete.");
+        // Courses
+        ArrayList<Course> courses = new ArrayList<>();
+        courses.add(new Course("Intro to Programming"));
+        courses.add(new Course("Linear Algebra"));
+        courses.add(new Course("Data Structures"));
+
+        System.out.println("\nAvailable Courses:");
+        for (Course c : courses) {
+            c.displayDetails();
+        }
+
+        // Attendance Records
+        ArrayList<AttendanceRecord> records = new ArrayList<>();
+        records.add(new AttendanceRecord(students.get(0).getId(), courses.get(0).getCourseId(), "Present"));
+        records.add(new AttendanceRecord(students.get(1).getId(), courses.get(1).getCourseId(), "Absent"));
+        records.add(new AttendanceRecord(students.get(2).getId(), courses.get(2).getCourseId(), "InvalidStatus"));
+
+        System.out.println("\nAttendance Records:");
+        for (AttendanceRecord r : records) {
+            r.displayDetails();
+        }
+
+        // Save to files
+        FileStorageService storageService = new FileStorageService();
+        storageService.saveData(students, "students.txt");
+        storageService.saveData(courses, "courses.txt");
+        storageService.saveData(records, "attendance_log.txt");
+
+        System.out.println("\nPart 6: Data persistence complete. Check output files.");
     }
 }

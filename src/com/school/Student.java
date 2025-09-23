@@ -1,10 +1,10 @@
 package com.school;
 
-public class Student extends Person {
+public class Student extends Person implements Storable {
     private String gradeLevel;
 
     public Student(String name, String gradeLevel) {
-        super(name); // Call Person constructor for auto-id and name
+        super(name);
         this.gradeLevel = gradeLevel;
     }
 
@@ -15,5 +15,10 @@ public class Student extends Person {
     @Override
     public void displayDetails() {
         System.out.println("Student -> ID: " + getId() + ", Name: " + getName() + ", Grade Level: " + gradeLevel);
+    }
+
+    @Override
+    public String toDataString() {
+        return getId() + "," + getName() + "," + gradeLevel;
     }
 }

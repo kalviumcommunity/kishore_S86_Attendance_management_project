@@ -80,3 +80,17 @@ Created Staff.java extending Person, adding a role attribute and its own display
 Demonstrated creation and display of Student, Teacher, and Staff objects in Main.java.
 
 Updated AttendanceRecord creation to use the inherited getId method.
+
+## Part 6: Interface-Driven Persistence with Storage
+
+- Defined a Storable interface with a toDataString() method.
+- Modified Student, Course, and AttendanceRecord to implement Storable and return CSV-like data.
+- Created FileStorageService with saveData(List<? extends Storable> items, String filename).
+- Used try-with-resources for safe file writing.
+- Demonstrated saving students, courses, and attendance records into separate files.
+
+### How to Run
+1. Navigate to the project root directory.
+2. Compile: javac src/com/school/*.java
+3. Run: java -cp src com.school.Main
+4. Check the generated files: students.txt, courses.txt, attendance_log.txt
