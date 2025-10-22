@@ -1,39 +1,44 @@
 package com.school;
 
 public class AttendanceRecord implements Storable {
-    private int studentId;
-    private String courseId;
+    private Student student;
+    private Course course;
     private String status;
 
-    public AttendanceRecord(int studentId, String courseId, String status) {
-        if (!status.equalsIgnoreCase("Present") && !status.equalsIgnoreCase("Absent")) {
-            this.status = "Invalid";
-            System.out.println("Warning: Invalid status provided for studentId " + studentId + " and courseId " + courseId);
-        } else {
+    public AttendanceRecord(Student student, Course course, String status) {
+        this.student = student;
+        this.course = course;
+
+        if (status.equalsIgnoreCase("Present") || status.equalsIgnoreCase("Absent")) {
             this.status = status;
+        } else {
+            System.out.println("Warning: Invalid status provided for studentId " 
+                + student.getId() + " and courseId " + course.getCourseId());
+            this.status = "Invalid";
         }
-        this.studentId = studentId;
-        this.courseId = courseId;
     }
 
-    public int getStudentId() {
-        return studentId;
+    public Student getStudent() {
+        return student;
     }
 
-    public String getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void displayDetails() {
-        System.out.println("Student ID: S" + studentId + ", Course ID: " + courseId + ", Status: " + status);
+    public void displayRecord() {
+        System.out.println("Student ID: " + student.getId() +
+                ", Name: " + student.getName() +
+                ", Course: " + course.getCourseName() +
+                ", Status: " + status);
     }
 
     @Override
     public String toDataString() {
-        return studentId + "," + courseId + "," + status;
+        return student.getId() + "," + course.getCourseId() + "," + status;
     }
 }
