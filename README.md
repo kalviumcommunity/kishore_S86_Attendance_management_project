@@ -94,3 +94,13 @@ Updated AttendanceRecord creation to use the inherited getId method.
 2. Compile: javac src/com/school/*.java
 3. Run: java -cp src com.school.Main
 4. Check the generated files: students.txt, courses.txt, attendance_log.txt
+
+
+Part 7: Polymorphic Behaviour in Attendance and Displaying Reports
+
+- Enhanced AttendanceRecord to store full Student and Course objects instead of just IDs.
+- Implemented runtime polymorphism by looping through a List<Person> and invoking displayDetails() on each object.
+- Updated AttendanceRecord display to show student names and course titles.
+- Demonstrated polymorphic behaviour using Student, Teacher, and Staff instances.
+- Maintained file persistence using the FileStorageService from Part 6.
+- Validated attendance input and ensured data is still saved in text files.
