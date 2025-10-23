@@ -1,48 +1,66 @@
 package com.school;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
         System.out.println("--- School Attendance System ---");
-        System.out.println("=== Part 8: Overloaded Commands ===\n");
+        System.out.println("=== Part 9: SOLID Service Layer ===");
 
-        // Initialize file storage and attendance service
         FileStorageService storage = new FileStorageService();
-        AttendanceService attendanceService = new AttendanceService(storage);
+        RegistrationService registrationService = new RegistrationService(storage);
+        AttendanceService attendanceService = new AttendanceService(storage, registrationService);
 
-        // === Create Students ===
-        ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student("Alice Wonderland", "10th Grade"));
-        students.add(new Student("Bob The Builder", "11th Grade"));
-        students.add(new Student("Charlie Brown", "12th Grade"));
+        // Register Students
+        Student s1 = new Student("Alice Wonderland", "10th Grade");
+        Student s2 = new Student("Bob The Builder", "11th Grade");
+        Student s3 = new Student("Charlie Brown", "12th Grade");
 
-        // === Create Courses ===
-        ArrayList<Course> courses = new ArrayList<>();
-        courses.add(new Course("C101", "Intro to Programming"));
-        courses.add(new Course("C102", "Linear Algebra"));
-        courses.add(new Course("C103", "Data Structures"));
+        registrationService.registerStudent(s1);
+        registrationService.registerStudent(s2);
+        registrationService.registerStudent(s3);
 
-        // === Demonstrate Overloaded markAttendance() ===
-        System.out.println("--- Marking Attendance ---");
-        attendanceService.markAttendance(students.get(0), courses.get(0), "Present");
-        attendanceService.markAttendance(2, 102, "Absent", students, courses);
-        attendanceService.markAttendance(3, 103, "Present", students, courses);
+        // Register Teachers
+        Teacher t1 = new Teacher("Mr. John", "Mathematics");
+        Teacher t2 = new Teacher("Ms. Mary", "Physics");
+        registrationService.registerTeacher(t1);
+        registrationService.registerTeacher(t2);
 
-        // === Display Attendance Logs ===
-        System.out.println("\n--- All Attendance Records ---");
+        // Register Staff
+        Staff staff1 = new Staff("David", "Clerk");
+        Staff staff2 = new Staff("Sophia", "Librarian");
+        registrationService.registerStaff(staff1);
+        registrationService.registerStaff(staff2);
+
+        // Create Courses
+        registrationService.createCourse("Intro to Programming");
+        registrationService.createCourse("Linear Algebra");
+        registrationService.createCourse("Data Structures");
+
+        // Display School Directory
+        displaySchoolDirectory(registrationService);
+
+        // Mark Attendance using IDs
+        attendanceService.markAttendance(1, "C101", "Present");
+        attendanceService.markAttendance(2, "C102", "Absent");
+        attendanceService.markAttendance(3, "C103", "Present");
+
+        // Display Attendance Logs
         attendanceService.displayAttendanceLog();
 
-        System.out.println("\n--- Attendance for Student: " + students.get(0).getName() + " ---");
-        attendanceService.displayAttendanceLog(students.get(0));
-
-        System.out.println("\n--- Attendance for Course: " + courses.get(1).getCourseName() + " ---");
-        attendanceService.displayAttendanceLog(courses.get(1));
-
-        // === Save Attendance Data ===
+        // Save all data
+        registrationService.saveAllRegistrations();
         attendanceService.saveAttendanceData();
 
-        System.out.println("\nPart 8: Overloaded attendance operations complete.");
+        System.out.println("\nPart 9: SOLID Service Layer complete. Check output files.");
+    }
+
+    public static void displaySchoolDirectory(RegistrationService regService) {
+        System.out.println("\n--- School Directory ---");
+        List<Person> people = regService.getAllPeople();
+        for (Person p : people) {
+            p.displayDetails();
+        }
     }
 }
