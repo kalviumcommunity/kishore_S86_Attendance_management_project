@@ -1,3 +1,3 @@
-C101,Intro to Programming
-C102,Linear Algebra
-C103,Data Structures
+C101,Intro to Programming,2
+C102,Linear Algebra,2
+C103,Data Structures,1

@@ -1,66 +1,58 @@
 package com.school;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("--- School Attendance System ---");
-        System.out.println("=== Part 9: SOLID Service Layer ===");
+        System.out.println("=== Part 10: Capacity Management & Enrollment ===\n");
 
         FileStorageService storage = new FileStorageService();
-        RegistrationService registrationService = new RegistrationService(storage);
-        AttendanceService attendanceService = new AttendanceService(storage, registrationService);
+        RegistrationService regService = new RegistrationService(storage);
+        AttendanceService attendanceService = new AttendanceService(storage, regService);
 
         // Register Students
-        Student s1 = new Student("Alice Wonderland", "10th Grade");
-        Student s2 = new Student("Bob The Builder", "11th Grade");
-        Student s3 = new Student("Charlie Brown", "12th Grade");
+        Student s1 = regService.registerStudent("Alice Wonderland", "10th Grade");
+        Student s2 = regService.registerStudent("Bob The Builder", "11th Grade");
+        Student s3 = regService.registerStudent("Charlie Brown", "12th Grade");
 
-        registrationService.registerStudent(s1);
-        registrationService.registerStudent(s2);
-        registrationService.registerStudent(s3);
+        // Register Teachers & Staff
+        Teacher t1 = regService.registerTeacher("Mr. John", "Mathematics");
+        Teacher t2 = regService.registerTeacher("Ms. Mary", "Physics");
+        Staff st1 = regService.registerStaff("David", "Clerk");
+        Staff st2 = regService.registerStaff("Sophia", "Librarian");
 
-        // Register Teachers
-        Teacher t1 = new Teacher("Mr. John", "Mathematics");
-        Teacher t2 = new Teacher("Ms. Mary", "Physics");
-        registrationService.registerTeacher(t1);
-        registrationService.registerTeacher(t2);
+        // Create Courses with capacity
+        Course c1 = regService.createCourse("C101", "Intro to Programming", 2);
+        Course c2 = regService.createCourse("C102", "Linear Algebra", 2);
+        Course c3 = regService.createCourse("C103", "Data Structures", 1);
 
-        // Register Staff
-        Staff staff1 = new Staff("David", "Clerk");
-        Staff staff2 = new Staff("Sophia", "Librarian");
-        registrationService.registerStaff(staff1);
-        registrationService.registerStaff(staff2);
+        // Enroll Students
+        regService.enrollStudentInCourse(s1, c1);
+        regService.enrollStudentInCourse(s2, c1);
+        regService.enrollStudentInCourse(s3, c1); // exceeds capacity
+        regService.enrollStudentInCourse(s3, c3); // allowed
 
-        // Create Courses
-        registrationService.createCourse("Intro to Programming");
-        registrationService.createCourse("Linear Algebra");
-        registrationService.createCourse("Data Structures");
+        // Display Courses
+        List<Course> courses = regService.getCourses();
+        for (Course course : courses) {
+            course.displayDetails();
+            System.out.println();
+        }
 
-        // Display School Directory
-        displaySchoolDirectory(registrationService);
+        // Mark attendance
+        attendanceService.markAttendance(s1, c1, "Present");
+        attendanceService.markAttendance(s2, c1, "Absent");
+        attendanceService.markAttendance(s3, c3, "Present");
 
-        // Mark Attendance using IDs
-        attendanceService.markAttendance(1, "C101", "Present");
-        attendanceService.markAttendance(2, "C102", "Absent");
-        attendanceService.markAttendance(3, "C103", "Present");
-
-        // Display Attendance Logs
+        // Display attendance log
+        System.out.println("--- All Attendance Records ---\n");
         attendanceService.displayAttendanceLog();
 
-        // Save all data
-        registrationService.saveAllRegistrations();
+        // Save data
+        regService.saveAllRegistrations();
         attendanceService.saveAttendanceData();
 
-        System.out.println("\nPart 9: SOLID Service Layer complete. Check output files.");
-    }
-
-    public static void displaySchoolDirectory(RegistrationService regService) {
-        System.out.println("\n--- School Directory ---");
-        List<Person> people = regService.getAllPeople();
-        for (Person p : people) {
-            p.displayDetails();
-        }
+        System.out.println("\nPart 10: Capacity management complete. Check output files.");
     }
 }
