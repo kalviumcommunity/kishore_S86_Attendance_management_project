@@ -138,7 +138,7 @@ Part 7: Polymorphic Behaviour in Attendance and Displaying Reports
 4. Check for `students.txt`, `teachers.txt`, `staff.txt`, `courses.txt`, and `attendance_log.txt`.
 
 ## Part 10: Capacity Management & SOLID Principles Reflection
-- Added a `capacity` feature to the `Course` class, along with an internal list of `enrolledStudents`.
+- Added a `capacity` feature to the `Course` class, along with an internal list of the `enrolledStudents`.
 - Updated `Course.displayDetails()` to show capacity and enrollment count, and `Course.toDataString()` to save capacity.
 - Modified `RegistrationService`:
     - `createCourse` method now accepts a capacity parameter.
